@@ -133,9 +133,9 @@ class BasePayment(models.Model):
     def __unicode__(self):
         return self.variant
 
-    def get_form(self, data=None):
+    def get_form(self, data=None, *args, **kwargs):
         provider = provider_factory(self.variant)
-        return provider.get_form(self, data=data)
+        return provider.get_form(self, data=data, *args, **kwargs)
 
     def get_purchased_items(self):
         return []

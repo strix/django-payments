@@ -19,14 +19,15 @@ class PaymentForm(forms.Form):
     When displaying the form remember to use *action* and *method*.
     '''
     def __init__(self, data=None, action='', method='post', provider=None,
-                 payment=None, hidden_inputs=True, autosubmit=False):
+                 payment=None, hidden_inputs=True, autosubmit=False, *args,
+                 **kwargs):
         if hidden_inputs and data is not None:
-            super(PaymentForm, self).__init__(auto_id=False)
+            super(PaymentForm, self).__init__(auto_id=False, *args, **kwargs)
             for key, val in data.items():
                 widget = forms.widgets.HiddenInput()
                 self.fields[key] = forms.CharField(initial=val, widget=widget)
         else:
-            super(PaymentForm, self).__init__(data=data)
+            super(PaymentForm, self).__init__(data=data, *args, **kwargs)
         self.action = action
         self.autosubmit = autosubmit
         self.method = method
